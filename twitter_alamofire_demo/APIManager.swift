@@ -14,6 +14,7 @@ import KeychainAccess
 
 class APIManager: SessionManager {
     
+    
     // MARK: TODO: Add App Keys
     static let consumerKey = "Jy0Spgp6HHS8boh7FuFO8jjO8"
     static let consumerSecret = "7hky2PD54nBvBkJTF6zeJLArXkOH5bNpLDqRMH7XiL5RzKWdNS"
@@ -39,6 +40,7 @@ class APIManager: SessionManager {
                     failure(error)
                 } else if let user = user {
                     print("Welcome \(user.name)")
+                    User.current = user
                     
                     // MARK: TODO: set User.current, so that it's persisted
                     
@@ -81,15 +83,15 @@ class APIManager: SessionManager {
 
         // This uses tweets from disk to avoid hitting rate limit. Comment out if you want fresh
         // tweets,
-        if let data = UserDefaults.standard.object(forKey: "hometimeline_tweets") as? Data {
-            let tweetDictionaries = NSKeyedUnarchiver.unarchiveObject(with: data) as! [[String: Any]]
-            let tweets = tweetDictionaries.flatMap({ (dictionary) -> Tweet in
-                Tweet(dictionary: dictionary)
-            })
-            
-            completion(tweets, nil)
-            return
-        }
+//        if let data = UserDefaults.standard.object(forKey: "hometimeline_tweets") as? Data {
+//            let tweetDictionaries = NSKeyedUnarchiver.unarchiveObject(with: data) as! [[String: Any]]
+//            let tweets = tweetDictionaries.flatMap({ (dictionary) -> Tweet in
+//                Tweet(dictionary: dictionary)
+//            })
+//            
+//            completion(tweets, nil)
+//            return
+//        }
         
         
         request(URL(string: "https://api.twitter.com/1.1/statuses/home_timeline.json")!, method: .get)
