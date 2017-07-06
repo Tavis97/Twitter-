@@ -46,5 +46,7 @@ class User {
         screen_name = dictionary["screen_name"] as! String
         profileImage = dictionary["profile_image_url_https"] as! String
         
+        self.dictionary = dictionary
+        
     }
 }
