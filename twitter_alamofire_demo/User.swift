@@ -15,6 +15,10 @@ class User {
     var screen_name: String 
     var dictionary: [String: Any]?
     var profileImage: String
+    var backgroundURL: String
+    var followers: Int
+    var followings: Int
+    var description: String
     private static var _current: User?
    
     
@@ -42,11 +46,14 @@ class User {
     }
     
     init(dictionary: [String: Any]) {
+        self.dictionary = dictionary
         name = dictionary["name"] as! String
         screen_name = dictionary["screen_name"] as! String
         profileImage = dictionary["profile_image_url_https"] as! String
-        
-        self.dictionary = dictionary
+        backgroundURL = dictionary["profile_banner_url"] as! String
+        followers =  (dictionary["followers_count"]  as! Int)
+        followings = (dictionary["friends_count"] as! Int )
+        description = dictionary["description"] as! String
         
     }
 }
